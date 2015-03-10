@@ -94,7 +94,59 @@ static struct cell *read_symbol_from_sb(struct string_builder *s) {
   return symbol_cell(sb_finalize(s));
 }
 
+static struct cell *read_string() {
+  struct string_builder *s = new_string_builder();
+  int c;
+  int escaping = 0;
+
+  while (1) {
+    c = getchar();
+    if (c == EOF) {
+      break;
+    }
+
+    if (escaping) {
+      switch (c) {
+        case 'n':
+          sb_push_char(s, '\n');
+          break;
+
+        case 't':
+          sb_push_char(s, '\t');
+          break;
+
+        default:
+          sb_push_char(s, c);
+          break;
+      }
+
+      escaping = 0;
+      continue;
+    }
+
+    switch (c) {
+      case '\\':
+        escaping = 1;
+        break;
+
+      case '"':
+        goto done;
+
+      default:
+        sb_push_char(s, c);
+        break;
+    }
+  }
+
+done:
+  return symbol_cell(sb_finalize(s));
+}
+
 static struct cell *read_symbol(char c) {
+  if (c == '"') {
+    return read_string();
+  }
+
   struct string_builder *s = new_string_builder();
   sb_push_char(s, c);
 
