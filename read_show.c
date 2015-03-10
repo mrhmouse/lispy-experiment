@@ -1,5 +1,21 @@
 #include "read_show.h"
+#include "string_builder.h"
 #include <stdio.h>
+
+static int is_whitespace(char c) {
+  return c == ' '  ||
+         c == '\t' ||
+         c == '\n' ||
+         c == '\r';
+}
+
+static int is_digit(char c) {
+  return '0' <= c && c <= '9';
+}
+
+static int to_digit(char c) {
+  return c - '0';
+}
 
 static void print_leaf(struct leaf l) {
   switch (l.type) {
@@ -59,4 +75,89 @@ void show_cell(struct cell *c) {
       print_leaf(c->data.leaf);
       break;
   }
+}
+
+static struct cell *read_list() {
+  return NULL; // TODO
+}
+
+static struct cell *read_symbol_from_sb(struct string_builder *s) {
+  char c;
+  while (1) {
+    c = getchar();
+    if (c == EOF || is_whitespace(c) || c == '(' || c == ')') {
+      break;
+    }
+
+    sb_push_char(s, c);
+  }
+
+  return symbol_cell(sb_finalize(s));
+}
+
+static struct cell *read_symbol(char c) {
+  struct string_builder *s = new_string_builder();
+  sb_push_char(s, c);
+
+  return read_symbol_from_sb(s);
+}
+
+static struct cell *continue_with_symbol(int val, char c) {
+  struct string_builder *s = new_string_builder();
+  while (val > 0) {
+    sb_push_char(s, (val % 10) + '0');
+    val = val / 10;
+  }
+
+  sb_push_char(s, '0');
+  sb_push_char(s, c);
+
+  return read_symbol_from_sb(s);
+}
+
+static struct cell *try_read_number(int val) {
+  char c;
+
+  while (1) {
+    c = getchar();
+    if (c == EOF) {
+      return int_cell(val);
+    }
+
+    if (is_whitespace(c) || c == ')' || c == '(') {
+      return int_cell(val);
+    }
+
+    if (is_digit(c)) {
+      val = (val * 10) + to_digit(c);
+      continue;
+    }
+
+    return continue_with_symbol(val, c);
+  }
+}
+
+static struct cell *read_symbol_or_number(char c) {
+  if (is_digit(c)) {
+    return try_read_number(to_digit(c));
+  }
+
+  return read_symbol(c);
+}
+
+struct cell *read_cell() {
+  char peek = getchar();
+  if (peek == EOF) {
+    return NULL;
+  }
+
+  if (is_whitespace(peek)) {
+    return read_cell();
+  }
+
+  if (peek == '(') {
+    return read_list();
+  }
+
+  return read_symbol_or_number(peek);
 }
