@@ -17,6 +17,32 @@ static void print_leaf(struct leaf l) {
   }
 }
 
+static void print_list(struct pair p) {
+  print_cell(p.head);
+  putchar(' ');
+
+  struct cell *c = p.tail;
+
+  while (c) {
+    switch (c->type) {
+      case C_NIL: return;
+
+      case C_LEAF:
+        printf(" . ");
+        print_leaf(c->data.leaf);
+        break;
+
+      case C_PAIR:
+        print_cell(c->data.pair.head);
+        c = c->data.pair.tail;
+        if (c->type != C_NIL) {
+          putchar(' ');
+        }
+        break;
+    }
+  }
+}
+
 void print_cell(struct cell *c) {
   switch (c->type) {
     case C_NIL:
@@ -24,11 +50,9 @@ void print_cell(struct cell *c) {
       break;
 
     case C_PAIR:
-      printf("(");
-      print_cell(c->data.pair.head);
-      printf(" ");
-      print_cell(c->data.pair.tail);
-      printf(")");
+      putchar('(');
+      print_list(c->data.pair);
+      putchar(')');
       break;
 
     case C_LEAF:
