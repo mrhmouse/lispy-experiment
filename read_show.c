@@ -1,4 +1,5 @@
 #include "read_show.h"
+#include "constructors.h"
 #include "string_builder.h"
 #include <stdio.h>
 
@@ -82,7 +83,7 @@ static struct cell *read_list() {
 }
 
 static struct cell *read_symbol_from_sb(struct string_builder *s) {
-  char c;
+  int c;
   while (1) {
     c = getchar();
     if (c == EOF || is_whitespace(c) || c == '(' || c == ')') {
@@ -116,7 +117,7 @@ static struct cell *continue_with_symbol(int val, char c) {
 }
 
 static struct cell *try_read_number(int val) {
-  char c;
+  int c;
 
   while (1) {
     c = getchar();
@@ -146,7 +147,7 @@ static struct cell *read_symbol_or_number(char c) {
 }
 
 struct cell *read_cell() {
-  char peek = getchar();
+  int peek = getchar();
   if (peek == EOF) {
     return NULL;
   }

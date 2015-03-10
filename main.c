@@ -18,7 +18,7 @@ int main() {
           nil())));
 
   puts("\n----");
-  print_cell(items);
+  show_cell(items);
   free_cell(items);
   puts("\n----");
 
