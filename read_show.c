@@ -1,4 +1,4 @@
-#include "debug_functions.h"
+#include "read_show.h"
 #include <stdio.h>
 
 static void print_leaf(struct leaf l) {
@@ -18,7 +18,7 @@ static void print_leaf(struct leaf l) {
 }
 
 static void print_list(struct pair p) {
-  print_cell(p.head);
+  show_cell(p.head);
   putchar(' ');
 
   struct cell *c = p.tail;
@@ -33,7 +33,7 @@ static void print_list(struct pair p) {
         break;
 
       case C_PAIR:
-        print_cell(c->data.pair.head);
+        show_cell(c->data.pair.head);
         c = c->data.pair.tail;
         if (c->type != C_NIL) {
           putchar(' ');
@@ -43,7 +43,7 @@ static void print_list(struct pair p) {
   }
 }
 
-void print_cell(struct cell *c) {
+void show_cell(struct cell *c) {
   switch (c->type) {
     case C_NIL:
       printf("nil");
