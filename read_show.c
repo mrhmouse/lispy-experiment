@@ -18,6 +18,63 @@ static int to_digit(char c) {
   return c - '0';
 }
 
+static void print_string(char *str) {
+  int i = 0;
+  char c;
+
+  putchar('"');
+
+  while (1) {
+    c = str[i++];
+    if (c == '\0') {
+      break;
+    }
+
+    switch (c) {
+      case '\n':
+        printf("\\n");
+        break;
+
+      case '\t':
+        printf("\\t");
+        break;
+
+      case '\\':
+        printf("\\\\");
+        break;
+
+      case '"':
+        printf("\\\"");
+        break;
+
+      default:
+        putchar(c);
+        break;
+    }
+  }
+
+  putchar('"');
+}
+
+static int contains_whitespace(char *str) {
+  int i = 0;
+  char c;
+
+  while (1) {
+    c = str[i++];
+
+    if (c == '\0') {
+      break;
+    }
+
+    if (is_whitespace(c)) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 static void print_leaf(struct leaf l) {
   switch (l.type) {
     case L_INTEGER:
@@ -29,14 +86,20 @@ static void print_leaf(struct leaf l) {
       break;
 
     case L_SYMBOL:
-      printf("%s", l.data.symbol);
+      if (contains_whitespace(l.data.symbol)) {
+        print_string(l.data.symbol);
+      } else {
+        printf("%s", l.data.symbol);
+      }
       break;
   }
 }
 
 static void print_list(struct pair p) {
   show_cell(p.head);
-  putchar(' ');
+  if (p.tail->type != C_NIL) {
+    putchar(' ');
+  }
 
   struct cell *c = p.tail;
 
