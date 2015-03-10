@@ -22,5 +22,11 @@ int main() {
   free_cell(items);
   puts("\n----");
 
+  items = read_cell();
+  puts("\n----");
+  show_cell(items);
+  free_cell(items);
+  puts("\n----");
+
   return 0;
 }

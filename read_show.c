@@ -78,9 +78,7 @@ void show_cell(struct cell *c) {
   }
 }
 
-static struct cell *read_list() {
-  return NULL; // TODO
-}
+static struct cell *read_list();
 
 static struct cell *read_symbol_from_sb(struct string_builder *s) {
   int c;
@@ -146,8 +144,7 @@ static struct cell *read_symbol_or_number(char c) {
   return read_symbol(c);
 }
 
-struct cell *read_cell() {
-  int peek = getchar();
+static struct cell *read_cell_with_peek(int peek) {
   if (peek == EOF) {
     return NULL;
   }
@@ -161,4 +158,45 @@ struct cell *read_cell() {
   }
 
   return read_symbol_or_number(peek);
+}
+
+struct cell *read_cell() {
+  int peek = getchar();
+  return read_cell_with_peek(peek);
+}
+
+static struct cell *keep_reading_list(struct cell *list) {
+  int peek = getchar();
+  if (peek == EOF) {
+    return cons(list, nil());
+  }
+
+  if (peek == ')') {
+    return cons(list, nil());
+  }
+
+  if (is_whitespace(peek)) {
+    return keep_reading_list(list);
+  }
+
+  struct cell *next = read_cell_with_peek(peek);
+  return cons(list, keep_reading_list(next));
+}
+
+static struct cell *read_list() {
+  int peek = getchar();
+  if (peek == EOF) {
+    return NULL;
+  }
+
+  if (peek == ')') {
+    return nil();
+  }
+
+  if (is_whitespace(peek)) {
+    return read_list();
+  }
+
+  struct cell *next = read_cell_with_peek(peek);
+  return keep_reading_list(next);
 }
