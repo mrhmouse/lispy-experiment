@@ -1,0 +1,4 @@
+: string_builder.c |> clang %f -fPIC -Wall -g -shared -o %o |> string_builder.so
+: constructors.c predicates.c read_show.c string_builder.so |> clang %f -fPIC -Wall -g -shared -o %o |> sexpr.so
+: string_builder.so sexpr.so main.c |> clang %f -Wall -g -o %o |> main
+: *.c |> ctags %f |> tags
