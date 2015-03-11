@@ -1,0 +1,44 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+DEFAULT_SIZE	string_builder.c	6;"	d	file:
+NEW	constructors.c	4;"	d	file:
+buffer	string_builder.c	/^  char *buffer;$/;"	m	struct:string_builder	file:
+buffer_size	string_builder.c	/^  size_t buffer_size;$/;"	m	struct:string_builder	file:
+cons	constructors.c	/^struct cell *cons(struct cell *head, struct cell *tail) {$/;"	f
+contains_whitespace	read_show.c	/^static int contains_whitespace(char *str) {$/;"	f	file:
+continue_with_symbol	read_show.c	/^static struct cell *continue_with_symbol(int val, char c) {$/;"	f	file:
+double_cell	constructors.c	/^struct cell *double_cell(double value) {$/;"	f
+free_cell	constructors.c	/^void free_cell(struct cell *c) {$/;"	f
+int_cell	constructors.c	/^struct cell *int_cell(int value) {$/;"	f
+is_digit	read_show.c	/^static int is_digit(char c) {$/;"	f	file:
+is_nil	predicates.c	/^int is_nil(struct cell c) {$/;"	f
+is_whitespace	read_show.c	/^static int is_whitespace(char c) {$/;"	f	file:
+keep_reading_list	read_show.c	/^static struct cell *keep_reading_list(struct cell *list) {$/;"	f	file:
+leaf	constructors.c	/^static struct cell *leaf(struct leaf l) {$/;"	f	file:
+length	string_builder.c	/^  size_t length;$/;"	m	struct:string_builder	file:
+main	main.c	/^int main() {$/;"	f
+main	test.c	/^int main() {$/;"	f
+new_string_builder	string_builder.c	/^struct string_builder *new_string_builder() {$/;"	f
+nil	constructors.c	/^struct cell *nil() {$/;"	f
+print_leaf	read_show.c	/^static void print_leaf(struct leaf l) {$/;"	f	file:
+print_list	read_show.c	/^static void print_list(struct pair p) {$/;"	f	file:
+print_string	read_show.c	/^static void print_string(char *str) {$/;"	f	file:
+putback	read_show.c	/^static void putback(int c) {$/;"	f	file:
+read_cell	read_show.c	/^struct cell *read_cell() {$/;"	f
+read_cell_with_peek	read_show.c	/^static struct cell *read_cell_with_peek(int peek) {$/;"	f	file:
+read_list	read_show.c	/^static struct cell *read_list() {$/;"	f	file:
+read_string	read_show.c	/^static struct cell *read_string() {$/;"	f	file:
+read_symbol	read_show.c	/^static struct cell *read_symbol(char c) {$/;"	f	file:
+read_symbol_from_sb	read_show.c	/^static struct cell *read_symbol_from_sb(struct string_builder *s) {$/;"	f	file:
+read_symbol_or_number	read_show.c	/^static struct cell *read_symbol_or_number(char c) {$/;"	f	file:
+sb_finalize	string_builder.c	/^char *sb_finalize(struct string_builder *s) {$/;"	f
+sb_push_char	string_builder.c	/^void sb_push_char(struct string_builder *s, char c) {$/;"	f
+show_cell	read_show.c	/^void show_cell(struct cell *c) {$/;"	f
+string_builder	string_builder.c	/^struct string_builder {$/;"	s	file:
+symbol_cell	constructors.c	/^struct cell *symbol_cell(char *value) {$/;"	f
+to_digit	read_show.c	/^static int to_digit(char c) {$/;"	f	file:
+try_read_number	read_show.c	/^static struct cell *try_read_number(int val) {$/;"	f	file:
