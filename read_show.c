@@ -3,6 +3,12 @@
 #include "string_builder.h"
 #include <stdio.h>
 
+static void putback(int c) {
+  if (c == '(' || c == ')') {
+    ungetc(c, stdin);
+  }
+}
+
 static int is_whitespace(char c) {
   return c == ' '  ||
          c == '\t' ||
@@ -148,6 +154,7 @@ static struct cell *read_symbol_from_sb(struct string_builder *s) {
   while (1) {
     c = getchar();
     if (c == EOF || is_whitespace(c) || c == '(' || c == ')') {
+      putback(c);
       break;
     }
 
@@ -239,6 +246,7 @@ static struct cell *try_read_number(int val) {
     }
 
     if (is_whitespace(c) || c == ')' || c == '(') {
+      putback(c);
       return int_cell(val);
     }
 
