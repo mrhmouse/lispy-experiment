@@ -1,10 +1,15 @@
 #pragma once
 
+/** Represents a pair of cells. */
 struct pair {
+  /** The first cell in the pair */
   struct cell *head;
+  
+  /** The second cell in the pair */
   struct cell *tail;
 };
 
+/** Represents a leaf node, which holds a value. */
 struct leaf {
   enum {
     L_INTEGER,
