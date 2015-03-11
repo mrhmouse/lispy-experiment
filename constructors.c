@@ -22,7 +22,7 @@ struct cell *double_cell(double value) {
 }
 
 struct cell *symbol_cell(char *value) {
-  struct leaf l = { L_SYMBOL, .data.symbol = strdup(value) };
+  struct leaf l = { L_SYMBOL, .data.symbol = value };
   return leaf(l);
 }
 
@@ -44,17 +44,19 @@ struct cell *cons(struct cell *head, struct cell *tail) {
 
 void free_cell(struct cell *c) {
   switch (c->type) {
-    case C_NIL: return;
+    case C_NIL: break;
+
     case C_PAIR:
       free_cell(c->data.pair.head);
       free_cell(c->data.pair.tail);
-      free(c->data.pair.head);
-      free(c->data.pair.tail);
       break;
+
     case C_LEAF:
       if (c->data.leaf.type == L_SYMBOL) {
         free(c->data.leaf.data.symbol);
       }
       break;
   }
+
+  free(c);
 }
