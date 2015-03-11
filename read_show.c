@@ -238,6 +238,7 @@ static struct cell *continue_with_symbol(int val, char c) {
 
 static struct cell *try_read_number(int val) {
   int c;
+  // TODO: actually parse floating point
 
   while (1) {
     c = getchar();
