@@ -2,31 +2,16 @@
 #include <stdio.h>
 
 int main() {
-  struct cell *items =
-    cons(
-      symbol_cell("*"),
-      cons(
-        int_cell(2),
-        cons(
-          cons(
-            symbol_cell("+"),
-            cons(
-              int_cell(3),
-              cons(
-                int_cell(4),
-                nil()))),
-          nil())));
+  struct cell *items = read_cell();
 
-  puts("\n----");
-  show_cell(items);
-  free_cell(items);
-  puts("\n----");
+  while (items) {
+    printf("> ");
+    show_cell(items);
+    free_cell(items);
+    puts("\nok");
 
-  items = read_cell();
-  puts("\n----");
-  show_cell(items);
-  free_cell(items);
-  puts("\n----");
+    items = read_cell();
+  }
 
   return 0;
 }
