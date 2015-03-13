@@ -42,19 +42,12 @@ struct cell *cons(struct cell *head, struct cell *tail) {
 }
 
 void free_cell(struct cell *c) {
-  switch (c->type) {
-    case C_NIL: break;
-
-    case C_PAIR:
-      free_cell(c->data.pair.head);
-      free_cell(c->data.pair.tail);
-      break;
-
-    case C_LEAF:
-      if (c->data.leaf.type == L_SYMBOL) {
-        free(c->data.leaf.data.symbol);
-      }
-      break;
+  /* Only the cell itself is freed.
+     Any extra data (i.e. symbols)
+     are left to the reader */
+  if (c->type == C_PAIR) {
+    free_cell(c->data.pair.head);
+    free_cell(c->data.pair.tail);
   }
 
   free(c);
