@@ -4,8 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-DEFAULT_SIZE	string_builder.c	6;"	d	file:
-NEW	constructors.c	4;"	d	file:
+DEFAULT_SIZE	string_builder.c	7;"	d	file:
 buffer	string_builder.c	/^  char *buffer;$/;"	m	struct:string_builder	file:
 buffer_size	string_builder.c	/^  size_t buffer_size;$/;"	m	struct:string_builder	file:
 cons	constructors.c	/^struct cell *cons(struct cell *head, struct cell *tail) {$/;"	f
@@ -21,7 +20,6 @@ keep_reading_list	read_show.c	/^static struct cell *keep_reading_list(struct cel
 leaf	constructors.c	/^static struct cell *leaf(struct leaf l) {$/;"	f	file:
 length	string_builder.c	/^  size_t length;$/;"	m	struct:string_builder	file:
 main	main.c	/^int main() {$/;"	f
-main	test.c	/^int main() {$/;"	f
 new_string_builder	string_builder.c	/^struct string_builder *new_string_builder() {$/;"	f
 nil	constructors.c	/^struct cell *nil() {$/;"	f
 print_leaf	read_show.c	/^static void print_leaf(struct leaf l) {$/;"	f	file:

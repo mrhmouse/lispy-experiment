@@ -1,6 +1,6 @@
 #include "constructors.h"
+#include "macros.h"
 #include <stdlib.h>
-#define NEW(name) name = malloc(sizeof(*name))
 
 static struct cell *leaf(struct leaf l) {
   struct cell *c;
